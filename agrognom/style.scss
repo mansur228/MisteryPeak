@@ -1,0 +1,48 @@
+@use 'style/_header.scss';
+
+::-webkit-scrollbar{
+    height: 0;
+    width: 0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100%;
+    // overflow: hidden;
+}
+
+#slider{
+    // height: 100vh;
+    // overflow: scroll;
+}
+.slide{
+    width: 100%;
+    height: 100vh;
+}
+.slide:nth-child(1){
+    background-color: #ff0;
+}
+.slide:nth-child(2){
+    background-color: #0f0;
+}
+.slide:nth-child(3){
+    background-color: #f0f;
+}
+.section{
+    width: 100%;
+    height: 100vh;
+}
+.section1{
+    width: 100%;
+    height: 100vh;
+    background-color: #0ff;
+}
+.section2{
+    width: 100%;
+    height: 100vh;
+    background-color: #00f;
+}
