@@ -6,79 +6,57 @@ window.onload = () => {
     document.body.style.overflow = 'hidden'
 
     window.addEventListener('wheel', (e) => {
-        if (slider.clientHeight < window.pageYOffset) {
-            console.log(slider.clientHeight, window.pageYOffset)
-        }
-        if (slider.clientHeight > window.pageYOffset) {
-            document.body.style.overflow = 'hidden'
+        console.log()
+        if (scrollable) {
 
-            if (scrollable) {
+            scrollable = false
 
-                scrollable = false
+            if (e.deltaY > 0) {
+                window.scrollBy({ top: +window.innerHeight, behavior: "smooth" })
 
-                if (e.deltaY > 0) {
-                    window.scrollBy({ top: +window.innerHeight, behavior: "smooth" })
+            } else {
 
-                } else {
+                window.scrollBy({ top: -window.innerHeight, behavior: "smooth" })
 
-                    window.scrollBy({ top: -window.innerHeight, behavior: "smooth" })
-
-                }
-
-                setTimeout(() => {
-
-                    scrollable = true
-
-                }, 600)
             }
-        } else {
 
-            document.body.style.overflow = ''
+            setTimeout(() => {
 
+                scrollable = true
+
+            }, 600)
         }
     })
 
 
-    let startPoint;
-    let moved = false;
-    function touch(e) {
-        e.preventDefault();
-        startPoint = e.changedTouches[0].pageX;
+    let StartToEnd = {
+        start: null,
+        end: null,
     }
-    function move(e) {
-        if (moved) {
-            return;
-        }
-        e.preventDefault();
-        if (e.changedTouches[0].pageX > startPoint + slider.offsetWidth / 4) {
-            console.log("направо");
-            moved = true;
-        }
-        if (e.changedTouches[0].pageX < startPoint - slider.offsetWidth / 4) {
-            console.log("налево");
-            moved = true;
-        }
-    }
-    slider.addEventListener("touchmove", move);
-    slider.addEventListener("touchstart", touch);
-    slider.addEventListener("touchend", () => {
-        setTimeout(() => {
-            moved = !moved;
-        }, 200);
+
+    slider.addEventListener("touchstart", (e) => {
+        StartToEnd.start = e.changedTouches[0].clientY
     });
-    
-    slider.addEventListener('mouseover' , (e)=>{
-        console.log(e)
-    })
-    slider.addEventListener("touchstart", (e)=>{
-        console.log(e.changedTouches[0].clientY)
-    });
-    slider.addEventListener("touchend", (e)=>{
-        console.log(e.changedTouches[0].clientY)
+    slider.addEventListener("touchend", (e) => {
+        StartToEnd.end = e.changedTouches[0].clientY
+        if (scrollable) {
+            if (StartToEnd.end < StartToEnd.start) {
+                scrollable = false
+                if (StartToEnd.start - StartToEnd.end > window.innerHeight / 5) {
+                    window.scrollBy({ top: window.innerHeight, behavior: "smooth" })
+                    setTimeout(() => {
+                        scrollable = true
+                    }, 600)
+                }
+            } else {
+                scrollable = false
+                if (StartToEnd.end - StartToEnd.start > window.innerHeight / 5) {
+                    window.scrollBy({ top: -window.innerHeight, behavior: "smooth" })
+                    setTimeout(() => {
+                        scrollable = true
+                    }, 600)
+                }
+            }
+        }
     });
 }
-// if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-//     console.log(navigator.userAgent)
-// } else {
-//     console.log(navigator.userAgent)
-// }
