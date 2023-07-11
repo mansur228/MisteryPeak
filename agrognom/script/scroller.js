@@ -15,12 +15,17 @@ function scrollTo() {
 
 scrollTo()
 
+console.log()
+
 window.addEventListener('resize', () => {
     if (page <= slides.length) {
         pageHeight = window.innerHeight
         window.scrollTo({
-            top: page * pageHeight,
+            top: slides[page].getBoundingClientRect().top,
         })
+        // window.scrollTo({
+        //     top: page * pageHeight,
+        // })
     }
 })
 window.addEventListener('wheel', function (e) {
