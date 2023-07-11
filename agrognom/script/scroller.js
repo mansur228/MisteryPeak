@@ -8,7 +8,7 @@ let pageHeight = window.innerHeight
 
 function scrollTo() {
     window.scrollTo({
-        top: page * pageHeight,
+        top: slides[page].getBoundingClientRect().top,
         behavior: 'smooth'
     })
 }
