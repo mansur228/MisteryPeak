@@ -59,4 +59,50 @@ window.addEventListener('wheel', function (e) {
     }
 });
 
+let touches = {
+    start: 0,
+    end: 0,
+}
+window.addEventListener('touchstart', (e) => {
+    touches.start = e.changedTouches[0].clientY
+})
+window.addEventListener('touchend', (e) => {
+    touches.end = e.changedTouches[0].clientY
+    let touch = touches.start - touches.end
+
+    if (isScrolling) {
+        if (page >= slides.length) {
+            if (slider.offsetHeight > window.pageYOffset) {
+                page--
+                isScrolling = false
+
+                scrollTo()
+
+                setTimeout(() => {
+                    isScrolling = true
+                }, 1000)
+                document.body.style.overflow = 'hidden'
+            } else {
+                document.body.style.overflow = 'auto'
+            }
+            console.log(page)
+        } else {
+            if (touch > window.innerHeight / 4 && page < slides.length) {
+                document.body.style.overflow = 'hidden'
+                page++
+            } else if (touch < window.innerHeight / 4 && page !== 0) {
+                document.body.style.overflow = 'hidden'
+                page--
+            }
+            isScrolling = false
+
+            scrollTo()
+
+            setTimeout(() => {
+                isScrolling = true
+            }, 1000)
+        }
+    }
+})
+
 
