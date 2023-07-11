@@ -8,44 +8,27 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body{
     width: 100%;
-    // overflow: hidden;
+}
+.slide.container{
+    width: 100%;
+    height: 100vh;
+    background-image: url('./assets/bg.jpg');
+}
+.container{
+    height: 100vh;
+    background-image: url('https://png.pngtree.com/element_our/png_detail/20180912/triangle-geometric-seamless-pattern-with-coconut-leaves-png_94879.jpg');
+    border-bottom: 5px #000 solid;
 }
 
-#slider{
-    // height: 100vh;
-    // overflow: scroll;
-}
-.slide{
-    width: 100%;
-    height: 100vh;
-}
-.slide:nth-child(1){
-    background-color: #ff0;
-}
-.slide:nth-child(2){
-    background-color: #0f0;
-}
-.slide:nth-child(3){
-    background-color: #f0f;
-}
-.slide:nth-child(4){
-    background-color: #00f;
-}
-.section{
-    width: 100%;
-    height: 100vh;
-}
-.section1{
-    width: 100%;
-    height: 100vh;
-    background-color: #0ff;
-}
-.section2{
-    width: 100%;
-    height: 100vh;
-    background-color: #00f;
+#bottle{
+    width: 50px;
+    height: 100px;
+    background-color: aqua;
+    position:absolute;
+    left: 50%;
 }

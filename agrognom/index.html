@@ -9,12 +9,11 @@
 </head>
 
 <body>
-    <div style="position: fixed; left: 20px; top: 50%;">
-        <button id="up">up</button>
-        <button id="down">down</button>
+    <div id="bottle">
+
     </div>
     <div id="slider">
-        <header class="slide">
+        <header class="slide container">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="300.000000pt" height="300.000000pt"
                 viewBox="0 0 300.000000 300.000000" preserveAspectRatio="xMidYMid meet">
 
@@ -31,19 +30,32 @@
                 </g>
             </svg>
         </header>
-        <div class="slide">
+        <div class="slide container">
 
         </div>
-        <div class="slide" id="target">
+        <div class="slide container">
 
         </div>
-        <div class="slide">
+        <div class="slide container">
+
+        </div>
+        <div class="slide container">
 
         </div>
     </div>
+    <div class="container">
+
+    </div>
+    <div class="container">
+
+    </div>
+    <div class="container">
+
+    </div>
 
     <script src="main.js"></script>
-    <script src="./script/scroller.js"></script>
+    <script type="module" src="./script/scroller.js"></script>
+    <script type="module" src="./script/bottleFollow.js"></script>
 </body>
 
 </html>

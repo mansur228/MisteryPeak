@@ -1,62 +1,62 @@
-window.onload = () => {
-    let scrollable = true
 
-    let slider = document.getElementById('slider')
+document.body.style.overflow = 'hidden'
+let isScrolling = true;
+let slides = document.getElementsByClassName('slide')
+let slider = document.getElementById('slider')
+let page = 0
+let pageHeight = window.innerHeight
 
-    document.body.style.overflow = 'hidden'
+function scrollTo() {
+    window.scrollTo({
+        top: page * pageHeight,
+        behavior: 'smooth'
+    })
+}
 
-    window.addEventListener('wheel', (e) => {
-        console.log()
-        if (scrollable) {
+scrollTo()
 
-            scrollable = false
+window.addEventListener('resize', () => {
+    if (page <= slides.length) {
+        pageHeight = window.innerHeight
+        window.scrollTo({
+            top: page * pageHeight,
+        })
+    }
+})
+window.addEventListener('wheel', function (e) {
+    if (isScrolling) {
+        if (page >= slides.length) {
+            if (slider.offsetHeight > window.pageYOffset) {
+                page--
+                isScrolling = false
 
-            if (e.deltaY > 0) {
-                window.scrollBy({ top: +window.innerHeight, behavior: "smooth" })
+                scrollTo()
 
+                setTimeout(() => {
+                    isScrolling = true
+                }, 1000)
+                document.body.style.overflow = 'hidden'
             } else {
-
-                window.scrollBy({ top: -window.innerHeight, behavior: "smooth" })
-
+                document.body.style.overflow = 'auto'
             }
+            console.log(page)
+        } else {
+            if (e.deltaY > 0 && page < slides.length) {
+                document.body.style.overflow = 'hidden'
+                page++
+            } else if (e.deltaY < 0 && page !== 0) {
+                document.body.style.overflow = 'hidden'
+                page--
+            }
+            isScrolling = false
+
+            scrollTo()
 
             setTimeout(() => {
-
-                scrollable = true
-
-            }, 600)
+                isScrolling = true
+            }, 1000)
         }
-    })
-
-
-    let StartToEnd = {
-        start: null,
-        end: null,
     }
+});
 
-    slider.addEventListener("touchstart", (e) => {
-        StartToEnd.start = e.changedTouches[0].clientY
-    });
-    slider.addEventListener("touchend", (e) => {
-        StartToEnd.end = e.changedTouches[0].clientY
-        if (scrollable) {
-            if (StartToEnd.end < StartToEnd.start) {
-                scrollable = false
-                if (StartToEnd.start - StartToEnd.end > window.innerHeight / 5) {
-                    window.scrollBy({ top: window.innerHeight, behavior: "smooth" })
-                    setTimeout(() => {
-                        scrollable = true
-                    }, 600)
-                }
-            } else {
-                scrollable = false
-                if (StartToEnd.end - StartToEnd.start > window.innerHeight / 5) {
-                    window.scrollBy({ top: -window.innerHeight, behavior: "smooth" })
-                    setTimeout(() => {
-                        scrollable = true
-                    }, 600)
-                }
-            }
-        }
-    });
-}
+
